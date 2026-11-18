@@ -3,30 +3,55 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Subway Surfers</title>
-<link rel="preconnect" href="https://subwaysurfers.holdenfernandesss.workers.dev">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading...</title>
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;background:#000;font-family:Arial,sans-serif}
-#loader{position:fixed;inset:0;background:#000;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:25px;z-index:99999}
-#spinner{width:35px;height:35px;border:3px solid #333;border-top-color:#fff;border-radius:50%;animation:_a .8s linear infinite;margin-bottom:22px}
-@keyframes _a{to{transform:rotate(360deg)}}
-#loadingText{font-size:16px;margin-bottom:22px;letter-spacing:.3px}
-#progressOuter{width:min(420px,90%);height:5px;background:#222;border-radius:10px;overflow:hidden}
-#progress{width:0;height:100%;background:#fff;transition:width .2s ease}
-#percent{margin-top:10px;color:#888;font-size:12px}
+body {
+    margin: 0;
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+#status {
+    text-align: center;
+}
 </style>
 </head>
 <body>
-<div id="loader">
-<div id="spinner"></div>
-<div id="loadingText">Loading Part 1</div>
-<div id="progressOuter"><div id="progress"></div></div>
-<div id="percent">0%</div>
-</div>
+
+<div id="status">Loading game...</div>
+
 <script>
-(()=>{const _0x=[..."68747470733a2f2f737562776179737572666572732e686f6c64656e6665726e616e64657373732e776f726b6572732e6465762f"].reduce((a,c,i,s)=>i%2?[...a,parseInt(s[i-1]+c,16)]:a,[]),_0y=String.fromCharCode(..._0x),_0z=["loader","loadingText","progress","percent"].map(x=>document.getElementById(x)),_0p={v:0};const _0f=n=>{_0p.v=Math.max(_0p.v,Math.min(100,n));_0z[2].style.width=_0p.v+"%";_0z[3].textContent=(~~_0p.v)+"%"};(async()=>{try{let _0r=await fetch(_0y,{cache:"force-cache"});if(!_0r.ok)throw new Error("HTTP "+_0r.status);let _0n=+_0r.headers.get("Content-Length")||0,_0h="";if(_0r.body){let _0q=_0r.body.getReader(),_0d=new TextDecoder(),_0b=0;for(;;){let{done:_0e,value:_0v}=await _0q.read();if(_0e)break;_0b+=_0v.length;_0h+=_0d.decode(_0v,{stream:true});_0f(_0n?Math.min(90,_0b/_0n*90):Math.min(85,_0p.v+2))}_0h+=_0d.decode()}else{_0h=await _0r.text();_0f(90)}if(!_0h.trim())throw new Error("Empty response");_0f(100);_0z[1].textContent="Starting game...";document.open();document.write(_0h);document.close()}catch(_0e){_0z[1].textContent="Failed to load: "+_0e.message;console.error(_0e)}})()})();
+(async () => {
+    const SOURCE = "https://subwaysurfers.holdenfernandesss.workers.dev/";
+
+    try {
+        const response = await fetch(SOURCE);
+
+        if (!response.ok) {
+            throw new Error("HTTP " + response.status);
+        }
+
+        const html = await response.text();
+
+        if (!html.trim()) {
+            throw new Error("The file is empty.");
+        }
+
+        document.open();
+        document.write(html);
+        document.close();
+
+    } catch (error) {
+        document.getElementById("status").textContent =
+            "Failed to load: " + error.message;
+    }
+})();
 </script>
+
 </body>
 </html>
